@@ -10,7 +10,7 @@ namespace Pagination.Paganation
         public int TotalElements { get; set; }
 
 
-        public List<Product> GetPage(List<Product> products);
+        public List<Product> GetPage();
         public bool InRange();
     }
 }

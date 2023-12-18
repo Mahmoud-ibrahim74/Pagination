@@ -6,10 +6,14 @@ namespace Pagination.Paganation
     {
         public int pageSize { get; set; }
         public int pageIndex { get; set; }
+        public List<Product> products { get; set; } = Product.GetProducts();
+        public int TotalElements { get; set; }
+
         public PaginationService()
         {
             pageSize = 3;
             pageIndex = 1;
+            TotalElements = products.Count;
         }
         public decimal pageCount
         {
@@ -18,9 +22,8 @@ namespace Pagination.Paganation
                 return Math.Round(Convert.ToDecimal(TotalElements / pageSize));
             }
         }
-        public int TotalElements { get; set; }
 
-        public List<Product> GetPage(List<Product> products)
+        public List<Product> GetPage()
         {
             TotalElements = products.Count;
 

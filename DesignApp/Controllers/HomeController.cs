@@ -23,11 +23,13 @@ namespace Pagination.Controllers
             return View(Product.GetProducts());
         }
         [HttpGet]
-        public IActionResult Pagination(int pageSize=3, int pageIndex=2)
+        public IActionResult Pagination(int pageSize = 3, int pageIndex = 2)
         {
             _pagination.pageIndex = pageIndex;
             _pagination.pageSize = pageSize;
-            return View(_pagination.GetPage(Product.GetProducts()));
+            ViewData["IsPreviousButtonDisabled"] = pageIndex <= 1;
+            ViewData["IsNextButtonDisabled"] = pageIndex >= _pagination.pageCount;
+            return View(_pagination.GetPage());
         }
         public IActionResult Privacy()
         {
