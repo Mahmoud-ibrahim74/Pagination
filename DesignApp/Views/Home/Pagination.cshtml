@@ -1,0 +1,61 @@
+﻿@using Pagination.Paganation
+@inject IPaginationService _Pagination;
+@model List<Product>;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ProductId</th>
+                <th scope="col">ProductName</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.ProductId</th>
+                    <td>@item.ProductName</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <!-- Previous Page -->
+            <li class="page-item @( _Pagination.pageIndex <= 1 ? "disabled" : "")">
+                <a class="page-link" asp-controller="Home" asp-action="Pagination" asp-route-pageSize="@_Pagination.pageSize" asp-route-pageIndex="@(_Pagination.pageIndex - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+
+            <!-- Page Numbers -->
+            @for (int i = 1; i <= 4; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="Pagination" asp-route-pageSize="@_Pagination.pageSize" asp-route-pageIndex="@i">
+                        @i
+                    </a>
+                </li>
+            }
+
+            <!-- Next Page -->
+            <li class="page-item @( _Pagination.pageIndex >= _Pagination.pageCount ? "disabled" : "")">
+                <a class="page-link" aria-label="Next" asp-controller="Home" asp-action="Pagination" asp-route-pageSize="@_Pagination.pageSize" asp-route-pageIndex="@(_Pagination.pageIndex + 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
